@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Генератор артикулов шовных материалов</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Генератор артикулов шовных материалов</h1>
+            <p class="subtitle">На основе внутренних стандартов компании</p>
+        </header>
+
+        <main>
+            <!-- Блок выбора типа материала -->
+            <section class="material-type">
+                <h2>1. Тип материала</h2>
+                <div class="radio-group">
+                    <label class="radio-label">
+                        <input type="radio" name="materialType" value="absorbable" checked>
+                        <span class="radio-custom"></span>
+                        Рассасывающийся (ALCASORB, ALCALACTINE, ALCALACTONE, ALCADINONE, ПГА, ПГЛА, ПДО)
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="materialType" value="non-absorbable">
+                        <span class="radio-custom"></span>
+                        Нерассасывающийся (Нейлон, Полипропилен, Шелк, Полиэстер, Сталь)
+                    </label>
+                </div>
+            </section>
+
+            <!-- Динамическая форма для ввода параметров -->
+            <form id="paramsForm">
+                <!-- Общее поле: Длина нити -->
+                <div class="form-group">
+                    <label for="threadLength">Длина нити (см):</label>
+                    <input type="number" id="threadLength" name="threadLength" value="75" min="1">
+                    <span class="default-note">по умолчанию: 75</span>
+                </div>
+
+                <!-- Поля для РАССАСЫВАЮЩИХСЯ материалов (видны по умолчанию) -->
+                <div id="absorbableParams" class="params-group">
+                    <div class="form-group">
+                        <label for="absorbableMaterial">Материал:</label>
+                        <select id="absorbableMaterial" name="absorbableMaterial">
+                            <option value="A">ALCASORB® (ПГА)</option>
+                            <option value="B">ALCASORB® RAPID</option>
+                            <option value="C">ALCALACTINE® (ПГЛА)</option>
+                            <option value="D">ALCALACTINE® RAPID</option>
+                            <option value="G" selected>ALCALACTONE® (ПГКЛ)</option>
+                            <option value="H">ALCADINONE (ПДО)</option>
+                            <option value="J">ALCADINONE (безузловой)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="uspSize">USP / Метрика:</label>
+                        <select id="uspSize" name="uspSize">
+                            <option value="01">USP 2 (Метрика 5)</option>
+                            <option value="02">USP 1 (Метрика 4)</option>
+                            <option value="03">USP 0 (Метрика 3.5)</option>
+                            <option value="04">USP 2/0 (Метрика 3)</option>
+                            <option value="05" selected>USP 3/0 (Метрика 2)</option>
+                            <option value="06">USP 4/0 (Метрика 1.5)</option>
+                            <option value="07">USP 5/0 (Метрика 1)</option>
+                            <option value="08">USP 6/0 (Метрика 0.7)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="needleLength">Длина иглы (мм):</label>
+                        <input type="number" id="needleLength" name="needleLength" value="45" min="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="needleShape">Форма иглы:</label>
+                        <select id="needleShape" name="needleShape">
+                            <option value="Z" selected>1/2 круга (Z)</option>
+                            <option value="V">3/8 круга (V)</option>
+                            <option value="U">5/8 круга (U)</option>
+                            <option value="R">1/4 круга (R)</option>
+                            <option value="J">J-игла (J)</option>
+                            <option value="S">Прямая (S)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="needleType">Вид иглы:</label>
+                        <select id="needleType" name="needleType">
+                            <option value="1" selected>Колющая (Taper Point)</option>
+                            <option value="2">Тупоконечная (Blunt)</option>
+                            <option value="3">Режущая (Cutting Edge)</option>
+                            <option value="4">Обратно-режущая (Reverse Cutting)</option>
+                            <option value="5">Колюще-режущая (Tapercut)</option>
+                            <option value="6">Даймонд (Diamond)</option>
+                            <option value="7">Ланцетовидная (Lancet)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="needleAttachment">Соединение:</label>
+                        <select id="needleAttachment" name="needleAttachment">
+                            <option value="T" selected>Одноигольное (T)</option>
+                            <option value="F">Две иглы (F)</option>
+                            <option value="P">Петля (P)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Поля для НЕРАССАСЫВАЮЩИХСЯ материалов (скрыты по умолчанию) -->
+                <div id="nonAbsorbableParams" class="params-group" style="display: none;">
+                    <div class="form-group">
+                        <label for="nonAbsorbableMaterial">Тип материала:</label>
+                        <select id="nonAbsorbableMaterial" name="nonAbsorbableMaterial">
+                            <option value="SK">Шелк (Silk)</option>
+                            <option value="NL">Нейлон (Nylon)</option>
+                            <option value="PP" selected>Полипропилен (Polypropylene)</option>
+                            <option value="PE">Полиэстер (Polyester)</option>
+                            <option value="SS">Сталь (Steel)</option>
+                            <option value="CC">Кетгут хромированный</option>
+                            <option value="PC">Кетгут обычный</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="threadThickness">Толщина нити (Метрика):</label>
+                        <input type="number" id="threadThickness" name="threadThickness" value="2" step="0.5" min="0.7" max="5">
+                        <span class="example-note">Пример: для 3/0 введите 2</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nonAbsNeedleLength">Длина иглы (мм):</label>
+                        <input type="number" id="nonAbsNeedleLength" name="nonAbsNeedleLength" value="22" min="1">
+                        <span class="default-note">Без иглы: 00</span>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="needleCurve">Изгиб иглы:</label>
+                        <select id="needleCurve" name="needleCurve">
+                            <option value="A">Прямая (A)</option>
+                            <option value="B" selected>1/2 круга (B)</option>
+                            <option value="C">1/2 круга две иглы (C)</option>
+                            <option value="D">1/4 круга (D)</option>
+                            <option value="E">1/4 круга две иглы (E)</option>
+                            <option value="F">3/8 круга (F)</option>
+                            <option value="G">3/8 круга две иглы (G)</option>
+                            <option value="H">5/8 круга (H)</option>
+                            <option value="I">5/8 круга две иглы (I)</option>
+                            <option value="J">J-игла (J)</option>
+                            <option value="L">Петля (L)</option>
+                            <option value="X">Без иглы (X)</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="nonAbsNeedleType">Тип иглы:</label>
+                        <select id="nonAbsNeedleType" name="nonAbsNeedleType">
+                            <option value="1" selected>Колющая (Taper Point)</option>
+                            <option value="2">Тупоконечная (Blunt)</option>
+                            <option value="3">Режущая (Cutting Edge)</option>
+                            <option value="4">Обратно-режущая (Reverse Cutting)</option>
+                            <option value="5">Колюще-режущая (Tapercut)</option>
+                            <option value="6">Ланцетовидная (Lancet)</option>
+                            <option value="0">Без иглы (0)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="button" id="generateBtn" class="generate-button">Сгенерировать артикул</button>
+            </form>
+
+            <!-- Блок результатов -->
+            <section id="resultSection" class="result-section" style="display: none;">
+                <h2>Результат</h2>
+                <p class="result-option">Выберите формат отображения:</p>
+                
+                <div class="result-options">
+                    <label class="radio-label">
+                        <input type="radio" name="resultFormat" value="full" checked>
+                        <span class="radio-custom"></span>
+                        С полной формулировкой
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="resultFormat" value="code">
+                        <span class="radio-custom"></span>
+                        Только код артикула
+                    </label>
+                </div>
+
+                <div class="result-output">
+                    <pre id="fullResult"></pre>
+                    <pre id="codeResult" style="display: none;"></pre>
+                </div>
+
+                <button type="button" id="copyBtn" class="copy-button">Скопировать результат</button>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
